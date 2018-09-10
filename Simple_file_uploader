@@ -1,0 +1,12 @@
+<?php
+
+//pulling from temporary storage
+$post_image = $_FILES['image']['name'];
+$post_image_temp = $_FILES['image']['tmp_name']; // temporary storage
+
+// move to server
+move_uploaded_file($post_image_temp, "../images/$post_image");
+
+// move to db
+$query = "insert into posts (post_image) values ('{$post_image}') ";
+?>
