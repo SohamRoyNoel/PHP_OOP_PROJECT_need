@@ -1,0 +1,11 @@
+<?php
+            $time = $_SERVER['REQUEST_TIME'];
+            $timeout_duration = 30;
+
+            if (isset($_SESSION['logout_msg']) && ($time - $_SESSION['logout_msg']) > $timeout_duration){
+                echo $_SESSION['logout_msg'];
+                session_unset();
+            }
+            
+            // dont forget to add session_start()
+    ?>
