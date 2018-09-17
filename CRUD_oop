@@ -1,4 +1,12 @@
 ------------------------------------------------------------------------------------------->
+the query method belongs to db file :: database.php
+------------------------------------------------------------------------------------------->
+public function query($sql){
+        $result = mysqli_query($this->connection, $sql);
+        $this->confirm_query($result);
+        return $result;
+    }
+------------------------------------------------------------------------------------------->
 METHODS
 ------------------------------------------------------------------------------------------->
 public function create(){
@@ -47,6 +55,29 @@ public function create(){
             return true;
         } else {
             return false;
+        }
+    }
+    ------------------------------------------------------------------------------------------->
+    Making securing the create method :: restricting by email
+    ------------------------------------------------------------------------------------------->
+    public function detect_same_email($em){
+        $sql = "select email from users where email = '{$em}'";
+        $ob = self::find_this_query($sql);
+        if ($ob){
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    public function create1($nm, $ps, $fn, $ln, $em){
+        global $database;
+
+        if ($this->detect_same_email($em) == 1){
+            $sql = "insert into users (username, password, first_name, last_name) values ('{$nm}', '{$ps}','{$fn}','{$ln}')";
+            $database->query($sql);
+        } else {
+            echo "email is used";
         }
     }
     ------------------------------------------------------------------------------------------->
