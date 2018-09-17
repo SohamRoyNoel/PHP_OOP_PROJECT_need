@@ -1,0 +1,73 @@
+------------------------------------------------------------------------------------------->
+METHODS
+------------------------------------------------------------------------------------------->
+public function create(){
+        global $database;
+
+
+        $sql = "insert into users (username, password, first_name, last_name)
+                    values ('{$this->username}', '{$this->password}','{$this->first_name}','{$this->last_name}')";
+
+        if (($database->query($sql))){
+
+            $this->id= $database->the_insert_id();
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+------------------------------------------------------------------------------------------->
+    public function update($uname, $ids){
+        global $database;
+
+
+        $sql = "update users set username='$uname' where id=$ids";
+
+        if (($database->query($sql))){
+
+            $this->id= $database->the_insert_id();
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+------------------------------------------------------------------------------------------->
+    public function delete($ids){
+        global $database;
+
+
+        $sql = "delete from users where id=$ids";
+
+        if (($database->query($sql))){
+
+            $this->id= $database->the_insert_id();
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+    ------------------------------------------------------------------------------------------->
+    Calling Methods
+    ------------------------------------------------------------------------------------------->
+    // create method
+                    $user = new User();
+                    $user->username = "Ivy";
+                    $user->last_name = "Chan";
+                    $user->first_name = "Mitsuha";
+                    $user->password = "1234";
+
+                    $user->create();
+
+
+                    // update method
+
+                    $user = new User();
+                    $user->update('IVY', 1);
+
+
+                     // Delete method
+                    $user = new User();
+                    $user->delete(4);
