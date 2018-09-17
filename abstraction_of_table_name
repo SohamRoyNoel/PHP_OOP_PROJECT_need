@@ -1,0 +1,15 @@
+class User {
+
+    protected static $db_table = "users";
+    
+    public function create1($nm, $ps, $fn, $ln, $em){
+        global $database;
+
+        if ($this->detect_same_email($em) == 1){
+            $sql = "insert into ".self::$db_table ." (username, password, first_name, last_name, email) values ('{$nm}', '{$ps}','{$fn}','{$ln}', '{$em}')";
+            $database->query($sql);
+        } else {
+            echo "email is used";
+        }
+    }
+}
